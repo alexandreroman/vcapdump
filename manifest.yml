@@ -1,0 +1,7 @@
+---
+applications:
+- name: vcapdump
+  path: target/vcapdump.jar
+  memory: 1G
+  buildpacks:
+  - https://github.com/cloudfoundry/java-buildpack.git
