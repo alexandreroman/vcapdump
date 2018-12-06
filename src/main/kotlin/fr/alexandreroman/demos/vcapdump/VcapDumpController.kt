@@ -17,7 +17,7 @@
 package fr.alexandreroman.demos.vcapdump
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController
  * REST controller showing the content of VCAP_SERVICES.
  */
 @RestController
-class VcapDumpController {
+class VcapDumpController(private val objectMapper: ObjectMapper) {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @GetMapping("/")
@@ -38,7 +38,7 @@ class VcapDumpController {
             return ResponseEntity.noContent().build()
         }
 
-        val vcapJson = jacksonObjectMapper().readValue(vcapEnv, JsonNode::class.java)
+        val vcapJson = objectMapper.readValue(vcapEnv, JsonNode::class.java)
         return ResponseEntity.ok(vcapJson)
     }
 }
